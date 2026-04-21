@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HolyShit.TV | The Ultimate Asset for MrBeast's Next Empire</title>
+    <!-- SEO & OpenGraph Meta Tags -->
     <meta name="description" content="A $2M domain acquisition proposal for MrBeast — the perfect digital asset to launch an independent streaming empire beyond YouTube.">
+    <meta property="og:title" content="HolyShit.TV | The Next Phase of Beast Industries">
+    <meta property="og:description" content="The definitive $2M premium domain acquisition brief for MrBeast and Night Media.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://holyshit.tv">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Syne', 'sans-serif'],
                         display: ['Outfit', 'sans-serif'],
                     },
                     colors: {
@@ -91,13 +99,25 @@
         .d4{animation-delay:.55s;opacity:0}
         .d5{animation-delay:.7s; opacity:0}
 
+        /* ── scroll reveal classes ── */
+        .reveal { opacity: 0; transform: translateY(32px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* ── noise overlay ── */
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.045;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
         /* ── scrollbar ── */
         ::-webkit-scrollbar{width:5px}
         ::-webkit-scrollbar-track{background:#050505}
         ::-webkit-scrollbar-thumb{background:#E50914;border-radius:3px}
     </style>
 </head>
-<body class="text-white antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+<body class="text-white antialiased overflow-x-hidden selection:bg-primary selection:text-white pb-0">
+<div class="noise"></div>
 
 <!-- ══════════════════════════════════════
      VIDEO BACKGROUND
@@ -140,9 +160,16 @@
         </div>
 
         <!-- headline -->
-        <h1 class="animate-slide-up d2 font-display font-black text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-tight text-glow mb-6">
-            Beyond YouTube.<br>
-            <span class="text-white-grad">The Independent TV Empire.</span>
+        <h1 class="animate-slide-up d2 font-display font-black tracking-tighter leading-none mb-6 relative">
+            <!-- Clean cinematic spotlight -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[1000px] h-[400px] bg-[radial-gradient(ellipse_at_center,_rgba(229,9,20,0.12)_0%,_transparent_70%)] pointer-events-none -z-10 mix-blend-screen"></div>
+            
+            <span class="block text-[4.5rem] md:text-[7rem] lg:text-[9.5rem] text-white uppercase mb-4" style="text-shadow: 0 16px 40px rgba(0,0,0,0.5);">
+                HolyShit<span class="text-primary">.TV</span>
+            </span>
+            <span class="text-2xl md:text-3xl lg:text-4xl text-gray-300 font-medium block max-w-4xl mx-auto tracking-wide drop-shadow-md">
+                <span class="text-white font-semibold">The Next Epoch</span> of Beast Industries.
+            </span>
         </h1>
 
         <!-- sub -->
@@ -520,5 +547,29 @@
     © 2026 HolyShit.TV Asset Holdings &nbsp;·&nbsp; Secured by Alibaba Cloud Domain Marketplace
 </footer>
 
+<!-- Intersection Observer Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Find elements to reveal smoothly upon scroll
+        const sections = document.querySelectorAll('section:not(:first-of-type) h2, section:not(:first-of-type) p, section:not(:first-of-type) .card, section:not(:first-of-type) .glass');
+        
+        sections.forEach(sec => sec.classList.add('reveal'));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Add slight random delay to cards for staggered effect if they appear together
+                    if(entry.target.classList.contains('card')) {
+                        let randDelay = Math.random() * 0.3;
+                        entry.target.style.transitionDelay = `${randDelay}s`;
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(sec => observer.observe(sec));
+    });
+</script>
 </body>
 </html>
